@@ -4,8 +4,10 @@ interface CrowdLevelsProps {
   selectedLine: 'Yellow' | 'Blue' | 'Violet' | 'Orange' | 'Aqua';
 }
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 async function getCrowdData(line: string) {
-  const response = await fetch(`http://localhost:8000/api/analytics/crowd?line=${line}`);
+  const response = await fetch(`${API_URL}/api/analytics/crowd?line=${line}`);
   if (!response.ok) throw new Error('Failed to fetch crowd data');
   return response.json();
 }
@@ -63,41 +65,38 @@ export default function CrowdLevels({ selectedLine }: CrowdLevelsProps) {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
-        {sortedStations.map((station: any) => {
-          const crowdLevel = station.crowd_level;
-          let borderColor = '#10b981';
-          
-          if (crowdLevel > 80) {
-            borderColor = '#dc2626';
-          } else if (crowdLevel > 60) {
-            borderColor = '#f59e0b';
-          } else if (crowdLevel > 40) {
-            borderColor = '#facc15';
-          }
-
-          return (
-            <div 
-              key={station.station_id} 
-              style={{ 
-                padding: '16px', 
-                backgroundColor: 'white', 
-                border: `2px solid ${borderColor}`, 
-                borderRadius: '8px' 
-              }}
-            >
-              <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#1f2937', marginBottom: '8px' }}>
-                {station.station_name}
+      <div style={{ backgroundColor: 'white', borderRadius: '8px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '20px', color: '#1f2937' }}>
+          Station-wise Crowd Levels
+        </h3>
+        <div style={{ display: 'grid', gap: '12px' }}>
+          {sortedStations.map((station: any) => {
+            const crowdPercentage = (station.crowd_level / 100) * 100;
+            const crowdColor = crowdPercentage > 75 ? '#dc2626' : crowdPercentage > 50 ? '#f59e0b' : '#10b981';
+            
+            return (
+              <div key={station.station_id} style={{ padding: '16px', backgroundColor: '#f9fafb', borderRadius: '6px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <span style={{ fontWeight: '600', color: '#374151' }}>{station.station_name}</span>
+                  <span style={{ fontSize: '14px', fontWeight: 'bold', color: crowdColor }}>
+                    {station.crowd_level}%
+                  </span>
+                </div>
+                <div style={{ height: '8px', backgroundColor: '#e5e7eb', borderRadius: '4px', overflow: 'hidden' }}>
+                  <div style={{ 
+                    height: '100%', 
+                    width: `${crowdPercentage}%`, 
+                    backgroundColor: crowdColor,
+                    transition: 'width 0.3s ease'
+                  }} />
+                </div>
+                <div style={{ marginTop: '8px', fontSize: '13px', color: '#6b7280' }}>
+                  Est. {station.estimated_passengers?.toLocaleString() || 'N/A'} passengers
+                </div>
               </div>
-              <div style={{ fontSize: '32px', fontWeight: 'bold', color: borderColor, marginBottom: '4px' }}>
-                {crowdLevel}
-              </div>
-              <div style={{ fontSize: '14px', color: '#6b7280' }}>
-                {station.category}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
