@@ -41,12 +41,6 @@ cd frontend
 npm install  
 npm run dev  
 
-Access the application at:  
-http://localhost:5173  
-
-API Docs:  
-http://localhost:8000/docs  
-
 ## 🛠️ Tech Stack
 
 - Backend: FastAPI, Python 3.8+, WebSocket  
