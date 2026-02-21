@@ -1,15 +1,6 @@
-<<<<<<< HEAD
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-python-multipart==0.0.6
-pydantic==2.5.0
-websockets==12.0
-apscheduler==3.10.4
-=======
-fastapi>=0.109.0
-uvicorn[standard]>=0.27.0
-python-multipart>=0.0.9
-pydantic>=2.6.0
-websockets>=12.0
-apscheduler>=3.10.0
->>>>>>> c11e661e8f1e38d5270c2f0cc2b0f9e93ea07aaa
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+websockets
+apscheduler
