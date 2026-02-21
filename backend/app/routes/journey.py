@@ -22,8 +22,7 @@ async def plan_journey(
             status_code=400,
             detail="Source and destination cannot be the same"
         )
-    
-    # Calculate route
+
     route = route_calculator.calculate_route(source_id, destination_id)
     if not route:
         raise HTTPException(
@@ -31,7 +30,6 @@ async def plan_journey(
             detail="Could not calculate route"
         )
     
-    # Calculate fare
     fare = fare_calculator.calculate_fare(
         source_id,
         destination_id,
@@ -44,7 +42,6 @@ async def plan_journey(
             detail="Could not calculate fare"
         )
     
-    # Get fare comparison
     fare_comparison = fare_calculator.compare_fares(source_id, destination_id)
     
     return {

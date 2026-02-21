@@ -48,7 +48,6 @@ async def calculate_fare(request: FareRequest):
             detail="Could not calculate fare"
         )
     
-    # Format response to match FareResponse model
     return {
         "source_station": fare['source_station'],
         "destination_station": fare['destination_station'],
