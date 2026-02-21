@@ -1,0 +1,74 @@
+cd ~/Desktop/Project
+
+# Root .gitignore
+cat > .gitignore << 'ENDOFFILE'
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+.cache/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+data/
+*.csv
+*.odt
+project_structure.txt
+ENDOFFILE
+
+# Backend .gitignore
+cat > backend/.gitignore << 'ENDOFFILE'
+venv/
+__pycache__/
+*.pyc
+.env
+*.log
+ENDOFFILE
+
+# Frontend .gitignore
+cat > frontend/.gitignore << 'ENDOFFILE'
+node_modules/
+dist/
+.cache/
+.env.local
+.env.*.local
+*.log
+ENDOFFILE
+
+echo "✅ .gitignore files created!"
